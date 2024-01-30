@@ -44,6 +44,8 @@ test.dependsOn startScript
 test {
     useTestNG() {
         useDefaultListeners = true // generates the test report
+        // Add the xml file path here
+        suites 'src/test/java/qtriptest/tests/testng.xml'   
     }
 
     afterSuite { desc, result ->
