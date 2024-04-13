@@ -1,5 +1,6 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
 import java.util.UUID;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-public class RegisterPage {
+public class RegisterPage extends SeleniumWrapper {
     static WebDriver driver;
 
     public String lastGeneratedUsername = "";
@@ -36,7 +37,9 @@ public class RegisterPage {
     }
 
     public void navigateToRegisterPage(){
-        driver.get("https://qtripdynamic-qa-frontend.vercel.app/pages/register/");
+        //driver.get("https://qtripdynamic-qa-frontend.vercel.app/pages/register/");
+        String url="https://qtripdynamic-qa-frontend.vercel.app/register/";
+        SeleniumWrapper.navigate(driver,url );
     }
 
     public boolean checkRegisterPageNavigation(){
@@ -48,13 +51,19 @@ public class RegisterPage {
       if (generateRandomUsername)
       test_data_username = username+UUID.randomUUID().toString();
       else
-        test_data_username = username;
+      Thread.sleep(2000);
+        //test_data_username = username;
+        sendKeys(emailTextBox, test_data_username );
 
-        emailTextBox.sendKeys(test_data_username);
-        String test_data_password = password;
-        passwordTextBox.sendKeys(test_data_password);
-        confirmPasswordTextBox.sendKeys(test_data_password);
-        registerNowButton.click();
+       // emailTextBox.sendKeys(test_data_username);
+       String test_data_password = password;
+       sendKeys(passwordTextBox, test_data_password);
+        // passwordTextBox.sendKeys(test_data_password);
+
+       sendKeys(confirmPasswordTextBox, test_data_password);
+     //   confirmPasswordTextBox.sendKeys(test_data_password);
+     
+        click(registerNowButton, driver);
 
         Thread.sleep(3000);
 

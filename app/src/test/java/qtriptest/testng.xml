@@ -15,3 +15,12 @@
    </groups> -->
     </test> 
 </suite>
+
+
+<extentreports>
+    <configuration>
+        <title>QTrip Regression Suite</title>
+        <theme>standard</theme>
+        <reportName>Regression test for QTrip</reportName>
+    </configuration>
+</extentreports>

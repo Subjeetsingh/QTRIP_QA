@@ -1,9 +1,11 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
 import java.util.List;
 import org.apache.logging.log4j.core.util.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -13,7 +15,7 @@ import org.testng.asserts.SoftAssert;
 // import org.testng.Asserts.*;
 
 
-public class AdventurePage {
+public class AdventurePage extends SeleniumWrapper{
 
     WebDriver driver;
 
@@ -49,8 +51,16 @@ public class AdventurePage {
     }
 
     public void selectFilterValue(String durationValue) throws InterruptedException{
+       try{
+        click(clickDuration, driver);
+       } 
+       catch(WebDriverException e){
+        e.printStackTrace();
+        click(clickDuration, driver);
 
-        clickDuration.click();
+       }
+
+        //clickDuration.click();
         //Thread.sleep(3000);
 
         Select dropdown=new Select(clickDuration);
@@ -104,13 +114,17 @@ public class AdventurePage {
     // }
 
     public void clearButton(){
-        clearButtonForDuration.click();
-        clearButtonForCategory.click();
+        click(clearButtonForDuration, driver);
+       // clearButtonForDuration.click();
+       click(clearButtonForCategory, driver);
+       // clearButtonForCategory.click();
     }   
     
-    public void selectAdventure(String adventureName){
-        String s="//h5[text()='"+adventureName+"']";
-        driver.findElement(By.xpath(s)).click();;
+    public void selectAdventure(String adventureName) throws InterruptedException{
+        By by=By.xpath("//h5[text()='"+adventureName+"']");
+       // driver.findElement(By.xpath(s)).click();;
+       // findElemetWithRetry(driver, s, 3)
+        click(findElemetWithRetry(driver, by, 3), driver);
 
     }
         

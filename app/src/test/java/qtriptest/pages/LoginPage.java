@@ -1,5 +1,7 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 
-public class LoginPage {
+public class LoginPage extends SeleniumWrapper{
 
     static WebDriver driver;
     //String url = "https://qtripdynamic-qa-frontend.vercel.app/pages/login/";
@@ -33,7 +35,8 @@ public class LoginPage {
     
 
     public void navigateToLoginPage(){
-        driver.get("https://qtripdynamic-qa-frontend.vercel.app/pages/login/");
+        String url="https://qtripdynamic-qa-frontend.vercel.app/pages/login/";
+        SeleniumWrapper.navigate(driver,url );
     }
 
     public boolean verifyLoginPageNavigation(){
@@ -41,14 +44,24 @@ public class LoginPage {
     }
 
     public Boolean performLogin(String username ,String password) throws InterruptedException{
-        emailTextBox.sendKeys(username);
-        passwordTextBox.sendKeys(password);
-        loginButton.click();
+try{
+        sendKeys(emailTextBox, username);
+        //emailTextBox.sendKeys(username);
+        sendKeys(passwordTextBox, password);
+      //  passwordTextBox.sendKeys(password);
+     // Thread.sleep(2000);
+      click(loginButton, driver);
+      // loginButton.click();
 
-        Thread.sleep(3000);
-        return true;
+        
 
     }
+    catch(NoSuchElementException e){
+        e.printStackTrace();
+    }
+    Thread.sleep(1000);
+return true;
+}
 
     
 }

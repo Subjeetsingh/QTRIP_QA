@@ -1,12 +1,13 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-public class AdventureDetailsPage {
+public class AdventureDetailsPage extends SeleniumWrapper{
 
     WebDriver driver;
 
@@ -31,11 +32,15 @@ public class AdventureDetailsPage {
     }
 
     public void bookAdventure(String name, String date, CharSequence[] perCount){
-        guestName.sendKeys(name);
-        bookingDate.sendKeys(date);
+        sendKeys(guestName, name);
+      //  guestName.sendKeys(name);
+      sendKeys(bookingDate, date);
+        //bookingDate.sendKeys(date);
+        //sendKeys(personCount, perCount[0]);
         personCount.clear();
         personCount.sendKeys(perCount[0]);
-        reserveCTA.click();
+        //reserveCTA.click();
+        click(reserveCTA, driver);
     }
 
     public boolean isBookingSuccessful() throws InterruptedException{

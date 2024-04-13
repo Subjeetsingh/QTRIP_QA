@@ -1,6 +1,7 @@
 
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.testng.Assert;
 
-public class HistoryPage {
+public class HistoryPage  extends SeleniumWrapper{
 
     WebDriver driver;
 
@@ -62,8 +63,12 @@ public void deleteFirstTransaction() throws InterruptedException {
     Thread.sleep(2000);    
     if (!transactionIds.isEmpty()) {
         transactionIdToDelete = transactionIds.get(0);
-        driver.findElement(By.xpath("//tbody[@id='reservation-table']//th[text()='" + transactionIdToDelete + "']/following-sibling::td[7]"))
-                .click();
+        By by=By.xpath("//tbody[@id='reservation-table']//th[text()='" + transactionIdToDelete + "']/following-sibling::td[7]"); 
+        click(findElemetWithRetry(driver,by,3), driver);
+        
+
+      //  driver.findElement()
+
         // TODO: Add wait
     } else {
         transactionIdToDelete = null;
