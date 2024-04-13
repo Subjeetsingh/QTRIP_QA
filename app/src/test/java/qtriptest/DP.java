@@ -1,8 +1,7 @@
 package qtriptest;
 
-
-import org.apache.poi.sl.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.testng.annotations.DataProvider;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,13 +14,15 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.Sheet;
 public class DP {
 
+    // @DataProvider(name = "userOnboard")
     public static String[][] readExcelFile(String sheetName)  {
         int rowIndex = 0;
          int cellIndex = 0;
          List<List> outputList = new ArrayList<List>();
          try{
 
-         FileInputStream excelFile = new FileInputStream("./src/test/resources/DatasetsforQTrip.xlsx");
+        //  FileInputStream excelFile = new FileInputStream("./src/test/resources/DatasetsforQTrip.xlsx");
+        FileInputStream excelFile = new FileInputStream("/home/crio-user/workspace/shubhjeetrajput-ME_QTRIP_QA_V2/app/src/test/resources/DatasetsforQTrip.xlsx");
          Workbook workbook = new XSSFWorkbook(excelFile);
         Sheet sheet = workbook.getSheet(sheetName);
          Iterator<Row> iteratorRow = sheet.rowIterator();

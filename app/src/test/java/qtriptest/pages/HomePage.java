@@ -2,14 +2,17 @@ package qtriptest.pages;
 
 import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 public class HomePage {
-    RemoteWebDriver driver;
+   WebDriver driver;
+
+    private final static String Search_Result_ENDPOINT="?city=goa";
+
 
 
     @FindBy(xpath="//a[text()='Register']")
@@ -18,8 +21,24 @@ public class HomePage {
     @FindBy(xpath="//div[text()='Logout']")
     private WebElement logoutButton;
 
+    @FindBy(xpath="//input[@placeholder='Search a City ']")
+    private WebElement searchCityTextbox;
+
+    @FindBy(xpath="//h5[text()='No City found']")
+    private WebElement noCityFoundMessage;
+
+    @FindBy(xpath="//a[text()='Reservations']")
+    private WebElement reservationsButton;
+
     
-    public HomePage(RemoteWebDriver driver){
+
+    // @FindBy(xpath="//li[@id='cityName']")
+    // private WebElement selectMatchedCityName;
+
+
+
+    
+    public HomePage(WebDriver driver){
         System.out.println(driver);
         // driver=this.driver;
         this.driver=driver;
@@ -28,8 +47,11 @@ public class HomePage {
 
     public void navigateToHomePage(){
         System.out.println("Driver here is :- "+driver);
+        
         driver.get("https://qtripdynamic-qa-frontend.vercel.app/");
     }
+
+   
 
 
     public Boolean isUserLogin(){
@@ -52,5 +74,41 @@ public class HomePage {
             Thread.sleep(3000);
             return true;
         }
-        
+
+        public void searchCity(String cityName) throws InterruptedException{
+            // searchCityTextbox.click();
+            searchCityTextbox.clear();
+            searchCityTextbox.sendKeys(cityName);
+            Thread.sleep(3000);
+            if(cityName.contains("abcde")){
+                noCityFoundMessage.getText().equals("No City found");
+            } 
+            // Thread.sleep(3000);
+            
+
+        }
+
+        public WebElement getCityLoc(String cityName){
+            String s="//*[@id='"+cityName.toLowerCase()+"']";
+            return driver.findElement(By.xpath(s));
+            
+        }
+
+        public boolean assertAutoCompleteText(String cityName) throws InterruptedException{
+            return getCityLoc(cityName).getText().equals(cityName);
+            
+            //driver.getCurrentUrl().contains(Search_Result_ENDPOINT);
+        }
+
+        public void selectCity(String cityName) throws InterruptedException{
+            getCityLoc(cityName).click();
+            Thread.sleep(3000);
+
+        }
+        public void clickReservationButton(){
+            reservationsButton.click();
+        }
     }
+
+        
+    

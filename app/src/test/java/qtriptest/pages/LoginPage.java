@@ -1,16 +1,15 @@
 package qtriptest.pages;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.testng.TestNGException;
 
 
 public class LoginPage {
 
-    RemoteWebDriver driver;
+    static WebDriver driver;
     //String url = "https://qtripdynamic-qa-frontend.vercel.app/pages/login/";
 
 
@@ -26,9 +25,9 @@ public class LoginPage {
     private WebElement loginButton;
 
 
-    public LoginPage(RemoteWebDriver driver){
-        this.driver=driver;
-        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
+    public LoginPage(WebDriver driver2){
+        this.driver=driver2;
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver2, 20), this);
     }
 
     

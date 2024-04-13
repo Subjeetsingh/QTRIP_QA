@@ -12,7 +12,7 @@ repositories {
 
 application {
     // Define the main class for the application.
-    mainClass = 'qtriptest.App'
+    mainClass = 'qtriptest.tests'
 }
 
 dependencies {
@@ -45,8 +45,12 @@ test {
     useTestNG() {
         useDefaultListeners = true // generates the test report
         // Add the xml file path here
-        suites 'src/test/java/qtriptest/tests/testng.xml'   
+        //suites 'app/src/test/java/qtriptest/testng.xml'   
+       //  suites 'src/test/java/qtriptest/tests/testng.xml' 
+         
+
     }
+
 
     afterSuite { desc, result ->
             if (!desc.parent) {

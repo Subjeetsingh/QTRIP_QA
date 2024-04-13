@@ -1,6 +1,7 @@
 package qtriptest.pages;
 
 import java.util.UUID;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -8,8 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 public class RegisterPage {
-
-    RemoteWebDriver driver;
+    static WebDriver driver;
 
     public String lastGeneratedUsername = "";
 
@@ -30,9 +30,9 @@ public class RegisterPage {
     @FindBy(xpath="//button[text()='Register Now']")
     private WebElement registerNowButton;
 
-    public RegisterPage(RemoteWebDriver driver){
-        this.driver=driver;
-        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
+    public RegisterPage(WebDriver driver2){
+        this.driver=driver2;
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver2, 20), this);
     }
 
     public void navigateToRegisterPage(){
